@@ -183,9 +183,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   depthSensitivity: 1
   depthSensitivity2: 1
-  normalsSensitivity: 1
-  debugMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  normalsSensitivity: 10
+  debugMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
   encodedDepthShader: {fileID: 4800000, guid: 37920868d1c5c2742a931c709f018c16, type: 3}
   edgeDetectShader: {fileID: 4800000, guid: 60b5a12a97fcf6945af3f87dffd86102, type: 3}
   depthCapturingCamera: {fileID: 20187476647482494}
