@@ -9,6 +9,10 @@ using Unity.Rendering;
 
 public class ShipManager : MonoBehaviour
 {
+    public static ShipManager shipManager;
+    private ShipManager refShipManger; 
+
+
     [Header("SpawnPrefabs")]
     public GameObject DefaultShipPrefab;
     public GameObject[] ShipUpgradeBranchPrefabs1;
@@ -22,28 +26,23 @@ public class ShipManager : MonoBehaviour
     private Entity[] ShipUpgradeBranchEntity3;
     private Entity[] ShipUpgradeBranchEntity4;
 
-    private Entity CurrentShip;
-    private EntityManager entityManager;
+    public Entity CurrentShip;
+    public EntityManager entityManager;
     private BlobAssetStore blobAssetStore;
 
     private bool defaultShipSpawned;
 
-    [Header("Ship Controlls")]
-    public float forwardSpeed,strafeSpeed,hoverSpeed;
-    public float forwardAcceleration, strafeAcceleration, hoverAcceleration;
-    private float activeForwardSpeed, activeStrafeSpeed, activeHoverSpeed;
 
-    private float rollInput;
-    public float rollSpeed, rollAcceleration;
-
-    public float lookRateSpeed;
-    private Vector2 lookInput, screenCenter, mouseDistance;
-
+    public ShipData shipdata;
+    private Vector2 screenCenter;
+    public List <ParticleSystem> ShipLazers;
+    public GameObject ShipLazerPrefab;
     private Resolution currentRes;
-    public Transform spawnedShipTransform;
-    public CharacterController spawnedShipCc;
-    private Translation spawnedShipTranslation;
-    private Rotation spawnedShipRotation;
+    public Entity HitObject;
+
+    [Header("Camera Tracking")]
+    public Transform ShipCamera;
+    public float Offset;
 
     private void Awake()
     {
@@ -71,13 +70,12 @@ public class ShipManager : MonoBehaviour
             ShipUpgradeBranchEntity4[ShipValue] = GameObjectConversionUtility.ConvertGameObjectHierarchy(ShipUpgradeBranchPrefabs4[ShipValue], settings);
         }
         DefaultShipEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(DefaultShipPrefab, settings);
-
-        screenCenter.x = Screen.width * .5f;
-        screenCenter.y = Screen.height * .5f;
-        currentRes = Screen.currentResolution;
-
     }
-
+    private void Start()
+    {
+        refShipManger = this;
+        shipManager = refShipManger;
+    }
     private void Update()
     {
         if (GameManager._gameManager.InGame) 
@@ -87,24 +85,19 @@ public class ShipManager : MonoBehaviour
                 if (!defaultShipSpawned)
                 {
                     CurrentShip = entityManager.Instantiate(DefaultShipEntity);
-                    spawnedShipTranslation = entityManager.GetComponentData<Translation>(CurrentShip);
-                    spawnedShipRotation = entityManager.GetComponentData<Rotation>(CurrentShip);
-
-                    spawnedShipTransform.position = spawnedShipTranslation.Value;
-                    spawnedShipTransform.rotation = spawnedShipRotation.Value;
-
+         
+                    shipdata = entityManager.GetComponentData<ShipData>(CurrentShip);
                     defaultShipSpawned = true;
                 }
                 else
                 {
+                    /*
                     activeForwardSpeed = Mathf.Lerp(activeForwardSpeed, Input.GetAxisRaw("Vertical") * forwardSpeed, forwardAcceleration * Time.deltaTime);
                     activeStrafeSpeed = Mathf.Lerp(activeStrafeSpeed, Input.GetAxisRaw("Horizontal") * strafeSpeed, strafeAcceleration * Time.deltaTime);
-                    activeHoverSpeed = Mathf.Lerp(activeHoverSpeed, Input.GetAxisRaw("Hover") * hoverSpeed, hoverAcceleration * Time.deltaTime);
                     rollInput = Mathf.Lerp(rollInput, -Input.GetAxisRaw("Horizontal"), rollAcceleration * Time.deltaTime);
 
                     spawnedShipCc.Move(spawnedShipTransform.forward * activeForwardSpeed * Time.deltaTime);
-                    spawnedShipCc.Move((spawnedShipTransform.right * activeStrafeSpeed * Time.deltaTime)
-                        + (transform.up * activeHoverSpeed * Time.deltaTime));
+                    spawnedShipCc.Move(spawnedShipTransform.right * activeStrafeSpeed * Time.deltaTime);
                     lookInput.x = Input.mousePosition.x;
                     lookInput.y = Input.mousePosition.y;
 
@@ -118,6 +111,8 @@ public class ShipManager : MonoBehaviour
                     spawnedShipRotation.Value = spawnedShipTransform.rotation;
                     entityManager.SetComponentData(CurrentShip, spawnedShipTranslation);
                     entityManager.SetComponentData(CurrentShip, spawnedShipRotation);
+                    */
+
 
                 }
             }
@@ -133,21 +128,44 @@ public class ShipManager : MonoBehaviour
                 {
                     return;
                 }
-                if(currentRes.width != Screen.currentResolution.width || currentRes.height != Screen.currentResolution.height)
+                ShipCamera.position = (entityManager.GetComponentData<Translation>(CurrentShip).Value) + Offset;
+
+                ShipCamera.rotation = (entityManager.GetComponentData<Rotation>(CurrentShip).Value);
+                if (currentRes.width != Screen.currentResolution.width || currentRes.height != Screen.currentResolution.height)
                 {
                     screenCenter.x = Screen.width * .5f;
                     screenCenter.y = Screen.height * .5f;
                     currentRes = Screen.currentResolution;
+
+                    shipdata.currentRes = currentRes;
+                    shipdata.screenCenter = screenCenter;
+                    entityManager.SetComponentData<ShipData>(CurrentShip, shipdata);
                 }
             }
         }
     }
 
-    private void SpawnShip() 
+    private void SpawnShip()
     {
         
     }
-
+    public void ShootParticleSystemInstantiated(float3 Pos) 
+    {
+        var TempShootVar = GameObject.Instantiate(ShipLazerPrefab, Pos, new Quaternion(0,0,0,0));
+        TempShootVar.transform.parent = ShipCamera;
+        TempShootVar.transform.rotation = new Quaternion(0, 0, 0, 0);
+        TempShootVar.transform.localPosition = Pos;
+        ShipLazers.Add(TempShootVar.GetComponent<ParticleSystem>());
+    }
+    public void ShootParticles() 
+    {
+        if (ShipLazers.Count == 0) { return; }
+        foreach (ParticleSystem Laser in ShipLazers)
+        {
+            Debug.Log("Firing Lazers");
+            Laser.Play();
+        }
+    }
 
 
     private void OnApplicationQuit()

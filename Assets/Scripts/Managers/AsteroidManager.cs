@@ -8,6 +8,9 @@ using Unity.Rendering;
 
 public class AsteroidManager : MonoBehaviour
 {
+    private AsteroidManager refAsteroidManager;
+    public static AsteroidManager asteroidManager;
+
     public GameObject[] asteroidsPrefabLarge;
     public GameObject[] asteroidsPrefabMedium;
     public GameObject[] asteroidsPrefabSmall;
@@ -18,12 +21,16 @@ public class AsteroidManager : MonoBehaviour
     private EntityManager entityManager;
     private BlobAssetStore blobAssetStore;
 
-    private List<Entity> spawnedAsteroids;
+    public List<Entity> spawnedAsteroids;
     public bool spawnAsteroids;
     public float CurrentSpawnAmmount;
     public float MaxSpawnAmmount;
+    public bool RemoveEnityQueue;
+    public Entity EntityToRemove;
 
     private int MaxRandomSpawnValue;
+    public Vector3 SpawnMax;
+    public Vector3 SpawnMin;
 
     // Start is called before the first frame update
     private void Awake()
@@ -43,7 +50,11 @@ public class AsteroidManager : MonoBehaviour
         }
         spawnedAsteroids = new List<Entity>();
     }
-
+    private void Start() 
+    {
+        refAsteroidManager = this;
+        asteroidManager = refAsteroidManager;
+    }
     // Update is called once per frame
     private void Update()
     {
@@ -51,11 +62,12 @@ public class AsteroidManager : MonoBehaviour
         {
             if (CurrentSpawnAmmount < MaxSpawnAmmount)
             {
-                for (CurrentSpawnAmmount = 0; CurrentSpawnAmmount < MaxSpawnAmmount; CurrentSpawnAmmount++)
+                float OldSpawnAmmount = CurrentSpawnAmmount;
+                for (CurrentSpawnAmmount = OldSpawnAmmount; CurrentSpawnAmmount < MaxSpawnAmmount; CurrentSpawnAmmount++)
                 {
                     Entity NewSpawnedEntity = entityManager.Instantiate(asteroidEntityLarge[ReturnNewRandom()]);
                     spawnedAsteroids.Add(NewSpawnedEntity);
-                    var postion = new Vector3(UnityEngine.Random.Range(-1000f, 1000f), UnityEngine.Random.Range(-1000f, 1000f), UnityEngine.Random.Range(-1000f, 1000f));
+                    var postion = new Vector3(UnityEngine.Random.Range(SpawnMin.x, SpawnMax.x), UnityEngine.Random.Range(SpawnMin.y, SpawnMax.y), UnityEngine.Random.Range(SpawnMin.z, SpawnMax.z));
                     entityManager.SetComponentData(NewSpawnedEntity, new Translation { Value = postion });
                 }
             }
@@ -64,11 +76,40 @@ public class AsteroidManager : MonoBehaviour
                 spawnAsteroids = false;
             }
         }
+        if (RemoveEnityQueue)
+        {
+            if (EntityToRemove != null)
+            {
+                spawnedAsteroids.Remove(EntityToRemove);
+                entityManager.DestroyEntity(EntityToRemove);
+                CurrentSpawnAmmount = CurrentSpawnAmmount - 1;
+                spawnAsteroids = true;
+                EntityToRemove = Entity.Null;
+                RemoveEnityQueue = false;
+            }
+        }
     }
     private int ReturnNewRandom() 
     {
         int generatedRandom = UnityEngine.Random.Range(0, MaxRandomSpawnValue);
         return (generatedRandom);
+    }
+    public void DestroyAsteroid(Entity asteroidToDestroy) 
+    {
+        Debug.Log("Method");
+
+        foreach (Entity entity in spawnedAsteroids)
+        {
+            Debug.Log("Called");
+            if (entity == asteroidToDestroy)
+            {
+                Debug.Log("RemovingEntity");
+                entityManager.DestroyEntity(entity);
+            }
+        }
+        CurrentSpawnAmmount = CurrentSpawnAmmount - 1;
+        spawnedAsteroids.Remove(asteroidToDestroy);
+        spawnAsteroids = true;
     }
     private void OnApplicationQuit()
     {
@@ -92,7 +133,6 @@ public class AsteroidManager : MonoBehaviour
         asteroidEntityLarge = new Entity[0];
         asteroidEntityMedium = new Entity[0];
         asteroidEntitySmall = new Entity[0];
-        spawnedAsteroids.Clear();
         if (blobAssetStore != null)
         {
             blobAssetStore.Dispose();

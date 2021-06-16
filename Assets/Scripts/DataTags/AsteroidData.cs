@@ -4,10 +4,11 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 [GenerateAuthoringComponent]
-public struct AsteroidTag : IComponentData
+public struct AsteroidData : IComponentData
 {
     public bool Initalised;
     public bool Hit;
+    public bool Dead;
     public int Health;
     public float Speed;
     public float4x4 currentAsteroidScale;

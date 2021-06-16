@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7920703960738834595}
   - component: {fileID: 7920703960739642039}
   - component: {fileID: 7920703960740865277}
-  - component: {fileID: 7920703960738515522}
-  - component: {fileID: 7920703960738515523}
   - component: {fileID: 8425785940382405224}
+  - component: {fileID: 2033157227876922491}
+  - component: {fileID: 8421601871234942642}
   m_Layer: 0
   m_Name: Asteroid_Type_Large (3)
   m_TagString: Untagged
@@ -84,7 +84,157 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7920703960738515522
+--- !u!114 &8425785940382405224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7920703960738662991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eada5402704b5c46902ef178e6a0593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Initalised: 0
+  Hit: 0
+  Health: 3
+  Speed: 0
+  currentAsteroidScale:
+    c0:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    c1:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    c2:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    c3:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+  asteroidLargeScale:
+    c0:
+      x: 500
+      y: 0
+      z: 0
+      w: 0
+    c1:
+      x: 0
+      y: 500
+      z: 0
+      w: 0
+    c2:
+      x: 0
+      y: 0
+      z: 500
+      w: 0
+    c3:
+      x: 0
+      y: 0
+      z: 0
+      w: 1
+  asteroidMediumScale:
+    c0:
+      x: 350
+      y: 0
+      z: 0
+      w: 0
+    c1:
+      x: 0
+      y: 350
+      z: 0
+      w: 0
+    c2:
+      x: 0
+      y: 0
+      z: 350
+      w: 0
+    c3:
+      x: 0
+      y: 0
+      z: 0
+      w: 1
+  asteroidSmallScale:
+    c0:
+      x: 200
+      y: 0
+      z: 0
+      w: 0
+    c1:
+      x: 0
+      y: 200
+      z: 0
+      w: 0
+    c2:
+      x: 0
+      y: 0
+      z: 200
+      w: 0
+    c3:
+      x: 0
+      y: 0
+      z: 0
+      w: 1
+--- !u!114 &2033157227876922491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7920703960738662991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MotionType: 0
+  m_Smoothing: 0
+  m_Mass: 1
+  m_LinearDamping: 0.01
+  m_AngularDamping: 0.05
+  m_InitialLinearVelocity:
+    x: 0
+    y: 0
+    z: 0
+  m_InitialAngularVelocity:
+    x: 0
+    y: 0
+    z: 0
+  m_GravityFactor: 0
+  m_OverrideDefaultMassDistribution: 0
+  m_CenterOfMass:
+    x: 0
+    y: 0
+    z: 0
+  m_Orientation:
+    Value:
+      x: 0
+      y: 0
+      z: 0
+    RotationOrder: 4
+  m_InertiaTensor:
+    x: 0.4
+    y: 0.4
+    z: 0.4
+  m_CustomTags:
+    Tag00: 0
+    Tag01: 0
+    Tag02: 0
+    Tag03: 0
+    Tag04: 0
+    Tag05: 0
+    Tag06: 0
+    Tag07: 0
+--- !u!114 &8421601871234942642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,29 +246,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 1
+  m_ShapeType: 0
   m_PrimitiveCenter:
     x: -0.0002320772
     y: 0.0017446405
     z: 0.0009794822
   m_PrimitiveSize:
     x: 0.013292723
-    y: 0.013292723
-    z: 0.014651824
+    y: 0.014651824
+    z: 0.013047857
   m_PrimitiveOrientation:
     Value:
-      x: -90
+      x: -0
       y: 0
-      z: -90
+      z: 0
     RotationOrder: 4
   m_Capsule:
     Height: 0.014651824
     Radius: 0.0066463617
-    Axis: 2
+    Axis: 1
   m_Cylinder:
     Height: 0.014651824
     Radius: 0.0066463617
-    Axis: 2
+    Axis: 1
   m_CylinderSideCount: 20
   m_SphereRadius: 0.007325912
   m_MinimumSkinnedVertexWeight: 0.1
@@ -227,153 +377,3 @@ MonoBehaviour:
         Tag07: 0
     m_SerializedVersion: 1
   m_SerializedVersion: 1
---- !u!114 &7920703960738515523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7920703960738662991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MotionType: 0
-  m_Smoothing: 0
-  m_Mass: 1
-  m_LinearDamping: 0.01
-  m_AngularDamping: 0.05
-  m_InitialLinearVelocity:
-    x: 0
-    y: 0
-    z: 0
-  m_InitialAngularVelocity:
-    x: -0.45
-    y: 0.67
-    z: -0.36
-  m_GravityFactor: 0
-  m_OverrideDefaultMassDistribution: 0
-  m_CenterOfMass:
-    x: 0
-    y: 0
-    z: 0
-  m_Orientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_InertiaTensor:
-    x: 0.4
-    y: 0.4
-    z: 0.4
-  m_CustomTags:
-    Tag00: 0
-    Tag01: 0
-    Tag02: 0
-    Tag03: 0
-    Tag04: 0
-    Tag05: 0
-    Tag06: 0
-    Tag07: 0
---- !u!114 &8425785940382405224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7920703960738662991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eada5402704b5c46902ef178e6a0593, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Initalised: 0
-  Hit: 0
-  Health: 3
-  Speed: 0
-  currentAsteroidScale:
-    c0:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    c1:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    c2:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    c3:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-  asteroidLargeScale:
-    c0:
-      x: 500
-      y: 0
-      z: 0
-      w: 0
-    c1:
-      x: 0
-      y: 500
-      z: 0
-      w: 0
-    c2:
-      x: 0
-      y: 0
-      z: 500
-      w: 0
-    c3:
-      x: 0
-      y: 0
-      z: 0
-      w: 1
-  asteroidMediumScale:
-    c0:
-      x: 350
-      y: 0
-      z: 0
-      w: 0
-    c1:
-      x: 0
-      y: 350
-      z: 0
-      w: 0
-    c2:
-      x: 0
-      y: 0
-      z: 350
-      w: 0
-    c3:
-      x: 0
-      y: 0
-      z: 0
-      w: 1
-  asteroidSmallScale:
-    c0:
-      x: 200
-      y: 0
-      z: 0
-      w: 0
-    c1:
-      x: 0
-      y: 200
-      z: 0
-      w: 0
-    c2:
-      x: 0
-      y: 0
-      z: 200
-      w: 0
-    c3:
-      x: 0
-      y: 0
-      z: 0
-      w: 1
