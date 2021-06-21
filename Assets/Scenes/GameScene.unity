@@ -2515,18 +2515,18 @@ MonoBehaviour:
   - {fileID: 1946019991841249785, guid: e8ab837768497cc4487f03b7140dda8f, type: 3}
   spawnLargeAsteroids: 1
   spawnMediumAsteroid: 0
-  mediumSpawnPos: {x: 0, y: 0, z: 0}
+  RemoveEnityQueue: 0
   spawnSmallAsteroid: 0
-  smallSpawnPos: {x: 0, y: 0, z: 0}
   CurrentSpawnAmmount: 0
   spawnOverHead: 1000
   CurrentOverHead: 0
   MaxSpawnAmmount: 2000
-  RemoveEnityQueue: 0
   DestoryedEntityPos:
     x: 0
     y: 0
     z: 0
+  mediumSpawnPos: {x: 0, y: 0, z: 0}
+  smallSpawnPos: {x: 0, y: 0, z: 0}
   SpawnMax: {x: 1000, y: 1000, z: 1000}
   SpawnMin: {x: -1000, y: -1000, z: -1000}
 --- !u!114 &1427179170
@@ -2665,12 +2665,18 @@ MonoBehaviour:
   - {fileID: 8134448139665139187, guid: 79163fd8d5278304dbb3359482c5e62d, type: 3}
   - {fileID: 1975893568404657167, guid: b1fcbf13b73962544871080e60307670, type: 3}
   - {fileID: 602313905762164243, guid: b43ddffff34e77a4ca542b5df20deb30, type: 3}
-  RandomDropChance: 2
+  RandomDropChance: 20
   UpgradePath:
     x: 0
     y: 0
     z: 0
     w: 0
+  MaxUpgradeReached: 0
+  SpawnNewDrop: 0
+  SpawnNewDropPos:
+    x: 0
+    y: 0
+    z: 0
   removeEntity: 0
 --- !u!114 &1427179175
 MonoBehaviour:
