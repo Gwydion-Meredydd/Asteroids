@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Initalised: 0
   Hit: 0
+  Dead: 0
   Health: 3
   Speed: 0
   currentAsteroidScale:
@@ -202,13 +203,13 @@ MonoBehaviour:
   m_LinearDamping: 0.01
   m_AngularDamping: 0.05
   m_InitialLinearVelocity:
-    x: 0
-    y: 0
-    z: 0
+    x: -10
+    y: 10
+    z: 10
   m_InitialAngularVelocity:
-    x: 0
-    y: 0
-    z: 0
+    x: 5
+    y: 5
+    z: 5
   m_GravityFactor: 0
   m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:

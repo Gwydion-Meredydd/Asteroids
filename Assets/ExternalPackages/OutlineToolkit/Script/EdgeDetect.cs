@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
-
+//NOT   
+//MY
+//SCRIPT
+//REFRENCED
+//IN
+//DOCUMENTATION 
 public class EdgeDetect : MonoBehaviour {
+
+    public static EdgeDetect Instance{ get; private set; }
 
     [Range(0f, 10f)]
     public float depthSensitivity = 1;
@@ -22,7 +29,7 @@ public class EdgeDetect : MonoBehaviour {
 
     RenderTexture depthTexture;
     RenderTexture normalsTexture;
-    Camera cam;
+    public Camera cam;
     [HideInInspector]
     public Shader encodedDepthShader;
     Material edgeDetectMat;
@@ -38,9 +45,13 @@ public class EdgeDetect : MonoBehaviour {
     public Shader normalsShader;
     public Camera normalsCapturingCamera;
 
-    int width = -1;
-    int height = -1;
+    public int width = -1;
+    public int height = -1;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     void LateUpdate() {
 
         if (cam == null && width != -1) {
@@ -114,7 +125,6 @@ public class EdgeDetect : MonoBehaviour {
             Graphics.Blit(source, destination, edgeCombineMat);
         }
     }
-
     public enum DebugMode {
         none,
         outlines,

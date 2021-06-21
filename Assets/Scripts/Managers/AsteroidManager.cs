@@ -1,16 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Transforms;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Rendering;
 
+#region SummarySection
+/// <summary>
+/// Singleton class that is used to house the entetis of the asteroids that where converted from prefabs also controlls the spawning of the asteroids (on start, and on destroy)
+///  </summary>
+/// <param name="AsteroidManager"></param>
+
+#endregion
 public class AsteroidManager : MonoBehaviour
-{
-    private AsteroidManager refAsteroidManager;
-    public static AsteroidManager asteroidManager;
+{ 
+    public static AsteroidManager Instance { get; private set; }
 
+    [Header("Asteroid Prefabs")]
     public GameObject[] asteroidsPrefabLarge;
     public GameObject[] asteroidsPrefabMedium;
     public GameObject[] asteroidsPrefabSmall;
@@ -18,23 +23,41 @@ public class AsteroidManager : MonoBehaviour
     private Entity[] asteroidEntityLarge;
     private Entity[] asteroidEntityMedium;
     private Entity[] asteroidEntitySmall;
+
     private EntityManager entityManager;
     private BlobAssetStore blobAssetStore;
 
     public List<Entity> spawnedAsteroids;
-    public bool spawnAsteroids;
-    public float CurrentSpawnAmmount;
-    public float MaxSpawnAmmount;
+    [Header("Spawn Controllers")]
+    public bool spawnLargeAsteroids;
+    public bool spawnMediumAsteroid;
     public bool RemoveEnityQueue;
+    public bool spawnSmallAsteroid;
+    [Space]
+    public float CurrentSpawnAmmount;
+    public float spawnOverHead;
+    public float CurrentOverHead;
+    public float MaxSpawnAmmount;
+    [HideInInspector]
+    public float3 DestoryedEntityPos;
+    [HideInInspector]
+    public Vector3 mediumSpawnPos;
+    [HideInInspector]
+    public Vector3 smallSpawnPos;
     public Entity EntityToRemove;
 
     private int MaxRandomSpawnValue;
+    [Space]
+    [Header("Spawn Size")]
     public Vector3 SpawnMax;
     public Vector3 SpawnMin;
 
-    // Start is called before the first frame update
+
+    //converts prefabs to entitiys ready to be instansiated into the game in run time
+    //also houses requied initliasiation (Unity dots requirments) 
     private void Awake()
     {
+        Instance = this;
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         blobAssetStore = new BlobAssetStore();
         GameObjectConversionSettings settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blobAssetStore);
@@ -45,20 +68,14 @@ public class AsteroidManager : MonoBehaviour
         for (int AsteroidValue = 0; AsteroidValue < asteroidsPrefabLarge.Length; AsteroidValue++)
         {
             asteroidEntityLarge[AsteroidValue] = GameObjectConversionUtility.ConvertGameObjectHierarchy(asteroidsPrefabLarge[AsteroidValue], settings);
-            asteroidEntityMedium[AsteroidValue] = GameObjectConversionUtility.ConvertGameObjectHierarchy(asteroidsPrefabLarge[AsteroidValue], settings);
-            asteroidEntitySmall[AsteroidValue] = GameObjectConversionUtility.ConvertGameObjectHierarchy(asteroidsPrefabLarge[AsteroidValue], settings);
+            asteroidEntityMedium[AsteroidValue] = GameObjectConversionUtility.ConvertGameObjectHierarchy(asteroidsPrefabMedium[AsteroidValue], settings);
+            asteroidEntitySmall[AsteroidValue] = GameObjectConversionUtility.ConvertGameObjectHierarchy(asteroidsPrefabSmall[AsteroidValue], settings);
         }
         spawnedAsteroids = new List<Entity>();
     }
-    private void Start() 
-    {
-        refAsteroidManager = this;
-        asteroidManager = refAsteroidManager;
-    }
-    // Update is called once per frame
     private void Update()
     {
-        if (spawnAsteroids == true)
+        if (spawnLargeAsteroids == true)
         {
             if (CurrentSpawnAmmount < MaxSpawnAmmount)
             {
@@ -73,19 +90,63 @@ public class AsteroidManager : MonoBehaviour
             }
             else 
             {
-                spawnAsteroids = false;
+                spawnLargeAsteroids = false;
             }
         }
+        if (CurrentOverHead < spawnOverHead)
+        {
+            if (spawnMediumAsteroid)
+            {
+
+                CurrentOverHead = CurrentOverHead + 1;
+                Entity NewSpawnedEntity = entityManager.Instantiate(asteroidEntityMedium[ReturnNewRandom()]);
+                spawnedAsteroids.Add(NewSpawnedEntity);
+                var postion = mediumSpawnPos;
+                entityManager.SetComponentData(NewSpawnedEntity, new Translation { Value = postion });
+                spawnMediumAsteroid = false;
+            }
+            if (spawnSmallAsteroid)
+            {
+                CurrentOverHead = CurrentOverHead + 1;
+                Entity NewSpawnedEntity = entityManager.Instantiate(asteroidEntitySmall[ReturnNewRandom()]);
+                spawnedAsteroids.Add(NewSpawnedEntity);
+                var postion = smallSpawnPos;
+                entityManager.SetComponentData(NewSpawnedEntity, new Translation { Value = postion });
+                spawnSmallAsteroid = false;
+            }
+        }
+        //removes an asteroid entity
         if (RemoveEnityQueue)
         {
             if (EntityToRemove != null)
             {
                 spawnedAsteroids.Remove(EntityToRemove);
                 entityManager.DestroyEntity(EntityToRemove);
-                CurrentSpawnAmmount = CurrentSpawnAmmount - 1;
-                spawnAsteroids = true;
+
+                //Overhead system allows for extra small and medium asteroids to spawn when large asteroid spawn cap is met
+                if (CurrentOverHead == 0)
+                {
+                    CurrentSpawnAmmount = CurrentSpawnAmmount - 1;
+                }
+                else
+                {
+                    CurrentOverHead = CurrentOverHead - 1;
+                }
+                spawnLargeAsteroids = true;
                 EntityToRemove = Entity.Null;
                 RemoveEnityQueue = false;
+
+                //uses the upgrade manager class singleton to randomly choose if the destroyed asteroid should drop a upgrade box
+                float SelectRandomValue = UnityEngine.Random.Range(0, UpgradeManager.Instance.RandomDropChance);
+                if (!UpgradeManager.Instance.MaxUpgradeReached)
+                {
+                    if (SelectRandomValue == UpgradeManager.Instance.RandomDropChance / 2)
+                    {
+                        UpgradeManager.Instance.SpawnNewDrop = true;
+                        UpgradeManager.Instance.SpawnNewDropPos = DestoryedEntityPos;
+                        DestoryedEntityPos = float3.zero;
+                    }
+                }
             }
         }
     }
@@ -94,23 +155,8 @@ public class AsteroidManager : MonoBehaviour
         int generatedRandom = UnityEngine.Random.Range(0, MaxRandomSpawnValue);
         return (generatedRandom);
     }
-    public void DestroyAsteroid(Entity asteroidToDestroy) 
-    {
-        Debug.Log("Method");
 
-        foreach (Entity entity in spawnedAsteroids)
-        {
-            Debug.Log("Called");
-            if (entity == asteroidToDestroy)
-            {
-                Debug.Log("RemovingEntity");
-                entityManager.DestroyEntity(entity);
-            }
-        }
-        CurrentSpawnAmmount = CurrentSpawnAmmount - 1;
-        spawnedAsteroids.Remove(asteroidToDestroy);
-        spawnAsteroids = true;
-    }
+    //used to clear memeory on close VERY IMPORTANT!!!!!!!!!
     private void OnApplicationQuit()
     {
         Debug.Log("Quit Called");

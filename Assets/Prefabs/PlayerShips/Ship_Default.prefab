@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187082373499481016}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.16, y: 0.37, z: -2.16}
+  m_LocalPosition: {x: -0.16, y: 0.37, z: -2.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3384727328412484687}
@@ -40,14 +40,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187082373499481016}
   serializedVersion: 7
-  lengthInSec: 5
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 1
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -546,7 +546,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 128
+    maxNumParticles: 1000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -811,7 +811,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 16.19
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4739,14 +4739,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704132234755727549}
   serializedVersion: 7
-  lengthInSec: 5
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 1
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -5245,7 +5245,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 128
+    maxNumParticles: 1000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -5510,7 +5510,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 16.19
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -15147,20 +15147,17 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  forwardSpeed: 20
-  strafeSpeed: 20
+  Teleport: 0
   hoverSpeed: 20
-  forwardAcceleration: 5
-  strafeAcceleration: 5
-  activeForwardSpeed: 0
-  activeStrafeSpeed: 0
-  rollInput: 0
+  activeForwardSpeed: 0.01
+  activeStrafeSpeed: 0.01
+  rollInput: 0.01
   rollSpeed: 90
   rollAcceleration: 5
   lookRateSpeed: 90
-  lookInput: {x: 0, y: 0}
-  screenCenter: {x: 0, y: 0}
-  mouseDistance: {x: 0, y: 0}
+  lookInput: {x: 0.01, y: 0.01}
+  screenCenter: {x: 0.01, y: 0.01}
+  mouseDistance: {x: 0.01, y: 0.01}
 --- !u!1 &3383031544213556937
 GameObject:
   m_ObjectHideFlags: 0

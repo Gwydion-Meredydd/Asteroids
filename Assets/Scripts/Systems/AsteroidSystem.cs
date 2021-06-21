@@ -3,20 +3,48 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[System.Serializable]
+#region SummarySection
+/// <summary>
+///  system class that is used to change the asteroids scale and tell the asteroid manager class to spawn in extra smaller size asteroids
+///  or to delete asteroid all together
+/// </summary>
+/// <param name="AsteroidSystem"></param>
+
+#endregion
 public class AsteroidSystem : SystemBase
 {
     protected bool InstantiateNewAsteroid;
     protected override void OnUpdate()
     {
-        if (!AsteroidManager.asteroidManager.RemoveEnityQueue)
+        if (!AsteroidManager.Instance.RemoveEnityQueue)
         {
-            Entities.ForEach((ref CompositeScale scale, ref AsteroidData asteroid, ref Entity ent, in AsteroidData asteroidData) =>
+            Entities.ForEach((ref CompositeScale scale, ref AsteroidData asteroid, ref Entity ent, in Translation pos, in AsteroidData asteroidData) =>
             {
-                if (!AsteroidManager.asteroidManager.RemoveEnityQueue)
+                if (!AsteroidManager.Instance.RemoveEnityQueue)
                 {
-                    if (!asteroid.Initalised || asteroid.Hit && !asteroid.Dead)
+                    if (!asteroid.Initalised)
                     {
+                        //sets current asteroid scale to correct scale on initlisation
+                        switch (asteroid.Health)
+                        {
+                            case 3:
+                                asteroid.currentAsteroidScale = asteroidData.asteroidLargeScale;
+                                break;
+                            case 2:
+                                asteroid.currentAsteroidScale = asteroidData.asteroidMediumScale;
+                                break;
+                            case 1:
+                                asteroid.currentAsteroidScale = asteroidData.asteroidSmallScale;
+                                break;
+                        }
+                        asteroid.Initalised = true;
+                        scale.Value = asteroid.currentAsteroidScale;
+                    }
+                    else if(asteroid.Hit && !asteroid.Dead)
+                    {
+                        //sets the asteroid scale to the correct scale on hit and plays sfx 
+                        //also tells asteroid maanger to spawn sub asteroids
+                        AudioManager.Instance.PlayRockDestory();
                         switch (asteroid.Health)
                         {
                             case 3:
@@ -25,10 +53,15 @@ public class AsteroidSystem : SystemBase
                                 break;
                             case 2:
                                 asteroid.currentAsteroidScale = asteroidData.asteroidMediumScale;
+                                AsteroidManager.Instance.mediumSpawnPos = pos.Value;
+                                AsteroidManager.Instance.spawnMediumAsteroid = true;
                                 asteroid.Hit = false;
                                 break;
                             case 1:
                                 asteroid.currentAsteroidScale = asteroidData.asteroidSmallScale;
+                                AsteroidManager.Instance.smallSpawnPos = pos.Value;
+                                AsteroidManager.Instance.spawnSmallAsteroid = true;
+
                                 asteroid.Hit = false;
                                 break;
                         }
@@ -37,10 +70,13 @@ public class AsteroidSystem : SystemBase
                     }
                     else if (asteroid.Dead)
                     {
-                        AsteroidManager.asteroidManager.RemoveEnityQueue = true;
+                        //removes hit asteroid
+                        AsteroidManager.Instance.RemoveEnityQueue = true;
                         if (ent != null)
                         {
-                            AsteroidManager.asteroidManager.EntityToRemove = ent;
+                            AudioManager.Instance.PlayRockDestory();
+                            AsteroidManager.Instance.DestoryedEntityPos = pos.Value;
+                            AsteroidManager.Instance.EntityToRemove = ent;
                         }
                         else
                         {
@@ -48,7 +84,8 @@ public class AsteroidSystem : SystemBase
                         }
                     }
                 }
-            }).WithoutBurst().Run();
+            }).WithoutBurst().Run();// needed to write external vars (currently a bug in this version of unity
+                                    //.run should work by it self)
         }
     }
 }

@@ -3,6 +3,14 @@ using Unity.Transforms;
 using Unity.Entities;
 using Unity.Mathematics;
 
+#region SummarySection
+/// <summary>
+///struct data tag to hold asteroid data for each asteroid
+/// </summary>
+/// <param name="AsteroidData"></param>
+
+#endregion
+
 [GenerateAuthoringComponent]
 public struct AsteroidData : IComponentData
 {
