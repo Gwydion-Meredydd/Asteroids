@@ -29,13 +29,21 @@ public class ShipSystem : SystemBase
                 bool isUpKeyPressed = Input.GetKey(playerInputData.upKey);
                 bool isDownKeyPressed = Input.GetKey(playerInputData.downKey);
                 bool isHPressed = Input.GetKeyDown(playerInputData.hyperJumpKey);
+                bool isEscapeKeyPressed = Input.GetKeyDown(playerInputData.PauseMenuKey);
 
                 //converts booleans to floats
                 float horizontalValue = Convert.ToInt32(isRightKeyPressed);
                 horizontalValue -= Convert.ToInt32(isLeftKeyPressed);
                 float verticalValue = Convert.ToInt32(isUpKeyPressed);
                 verticalValue -= Convert.ToInt32(isDownKeyPressed);
-                shipData.Teleport = isHPressed;
+                if (ShipManager.Instance.CanHyperJump)
+                {
+                    shipData.Teleport = isHPressed;
+                }
+                if (isEscapeKeyPressed) 
+                {
+                    UserInterfaceManager.Instance.EscapeKeyPressed();
+                }
 
                 //sets ship data move veraibles
                 shipData.activeForwardSpeed = Mathf.Lerp(shipData.activeForwardSpeed, verticalValue * ShipManager.Instance.currentShipSpeed, ShipManager.Instance.currentShipAcceleration * deltaTime);
@@ -47,18 +55,21 @@ public class ShipSystem : SystemBase
                 shipData.lookInput.y = Input.mousePosition.y;
                 shipData.mouseDistance.x = (shipData.lookInput.x - shipData.screenCenter.x) / shipData.screenCenter.y;
                 shipData.mouseDistance.y = (shipData.lookInput.y - shipData.screenCenter.y) / shipData.screenCenter.y;
-                
-                //plays ship moving audio when ship moves
-                if (isRightKeyPressed || isLeftKeyPressed || isUpKeyPressed || isDownKeyPressed ||
-                   shipData.mouseDistance.x > 0.3f || shipData.mouseDistance.x < -0.3f
-                   || shipData.mouseDistance.y > 0.2f || shipData.mouseDistance.y < -0.2f)
-                {
 
-                    AudioManager.Instance.PlayPlayerMove();
-                }
-                else
+                //plays ship moving audio when ship moves
+                if (!GameManager.Instance.Paused)
                 {
-                    AudioManager.Instance.StopPlayerMove();
+                    if (isRightKeyPressed || isLeftKeyPressed || isUpKeyPressed || isDownKeyPressed ||
+                     shipData.mouseDistance.x > 0.3f || shipData.mouseDistance.x < -0.3f
+                     || shipData.mouseDistance.y > 0.2f || shipData.mouseDistance.y < -0.2f)
+                    {
+
+                        AudioManager.Instance.PlayPlayerMove();
+                    }
+                    else
+                    {
+                        AudioManager.Instance.StopPlayerMove();
+                    }
                 }
             }
         }).WithoutBurst().Run();// needed to write external vars (currently a bug in this version of unity

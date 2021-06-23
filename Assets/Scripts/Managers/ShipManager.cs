@@ -37,14 +37,18 @@ public class ShipManager : MonoBehaviour
 
     private bool defaultShipSpawned;
 
-    [Header("Misc Items")]
+    [Header("Control Options")]
     public float currentShipSpeed;
     public float currentShipStrafeSpeed;
     public float currentShipAcceleration, currentStrafeAcceleration, currentRollAcceleration;
+    public bool CanHyperJump;
+    public int Health;
+    
+    [Header("Misc Items")]
+    public GameObject ShipLazerPrefab;
     public ShipData shipdata;
     private Vector2 screenCenter;
     public List <ParticleSystem> ShipLazers;
-    public GameObject ShipLazerPrefab;
     private Resolution currentRes;
     public Entity HitObject;
     public float ShootSpeed;
@@ -84,11 +88,6 @@ public class ShipManager : MonoBehaviour
             ShipUpgradeBranchEntity4[ShipValue] = GameObjectConversionUtility.ConvertGameObjectHierarchy(ShipUpgradeBranchPrefabs4[ShipValue], settings);
         }
         DefaultShipEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(DefaultShipPrefab, settings);
-    }
-    private void Start()
-    {
-        Cursor.visible = false;
-       // Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
     {
@@ -137,6 +136,8 @@ public class ShipManager : MonoBehaviour
                         EdgeDetect.Instance.cam = null;
                         EdgeDetect.Instance.width = -1;
                     }
+                    //sets health icons to correct health
+                    UserInterfaceManager.Instance.UpdateHealth();
                 }
             }
         }
@@ -185,7 +186,7 @@ public class ShipManager : MonoBehaviour
     }
 
     //used to clear memeory on close VERY IMPORTANT!!!!!!!!!
-    private void OnApplicationQuit()
+    public void ClearMemeory() 
     {
         foreach (Entity ShipU1 in ShipUpgradeBranchEntity1)
         {
@@ -214,5 +215,9 @@ public class ShipManager : MonoBehaviour
             blobAssetStore.Dispose();
             blobAssetStore = null;
         }
+    }
+    private void OnApplicationQuit()
+    {
+        ClearMemeory();
     }
 }

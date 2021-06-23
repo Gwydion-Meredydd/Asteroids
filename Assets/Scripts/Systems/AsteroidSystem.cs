@@ -1,7 +1,9 @@
 using UnityEngine;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
+using Unity.Physics;
 
 #region SummarySection
 /// <summary>
@@ -18,10 +20,12 @@ public class AsteroidSystem : SystemBase
     {
         if (!AsteroidManager.Instance.RemoveEnityQueue)
         {
-            Entities.ForEach((ref CompositeScale scale, ref AsteroidData asteroid, ref Entity ent, in Translation pos, in AsteroidData asteroidData) =>
+            float deltatime = Time.DeltaTime;
+            Entities.ForEach((ref CompositeScale scale, ref AsteroidData asteroid, ref PhysicsVelocity vel, ref Entity ent, in Translation pos, in AsteroidData asteroidData) =>
             {
                 if (!AsteroidManager.Instance.RemoveEnityQueue)
                 {
+                    #region asteroid Health
                     if (!asteroid.Initalised)
                     {
                         //sets current asteroid scale to correct scale on initlisation
@@ -55,12 +59,14 @@ public class AsteroidSystem : SystemBase
                                 asteroid.currentAsteroidScale = asteroidData.asteroidMediumScale;
                                 AsteroidManager.Instance.mediumSpawnPos = pos.Value;
                                 AsteroidManager.Instance.spawnMediumAsteroid = true;
+                                ScoreManger.Instance.currentScore = ScoreManger.Instance.currentScore + ScoreManger.Instance.largeAsteroidScore;
                                 asteroid.Hit = false;
                                 break;
                             case 1:
                                 asteroid.currentAsteroidScale = asteroidData.asteroidSmallScale;
                                 AsteroidManager.Instance.smallSpawnPos = pos.Value;
                                 AsteroidManager.Instance.spawnSmallAsteroid = true;
+                                ScoreManger.Instance.currentScore = ScoreManger.Instance.currentScore + ScoreManger.Instance.mediumAsteroidScore;
 
                                 asteroid.Hit = false;
                                 break;
@@ -77,12 +83,51 @@ public class AsteroidSystem : SystemBase
                             AudioManager.Instance.PlayRockDestory();
                             AsteroidManager.Instance.DestoryedEntityPos = pos.Value;
                             AsteroidManager.Instance.EntityToRemove = ent;
+                            ScoreManger.Instance.currentScore = ScoreManger.Instance.currentScore + ScoreManger.Instance.smallAsteroidScore;
                         }
                         else
                         {
                             Debug.Log("Ent is null");
                         }
                     }
+                    UserInterfaceManager.Instance.UpdateScore();
+                    #endregion
+
+                    #region asteroid Movement
+                    //keeps veloctiy consistent
+                    if (vel.Linear.x < 1 && vel.Linear.x > -1)
+                    {
+                        if (UnityEngine.Random.Range(0, 2) == 0)
+                        {
+                            vel.Linear.x = -asteroidData.LinearVelocity.x * asteroidData.LinearVelocity.x;
+                        }
+                        else 
+                        {
+                            vel.Linear.x = asteroidData.LinearVelocity.x * asteroidData.LinearVelocity.x;
+                        }
+                    }
+                    if (vel.Linear.y < 1 && vel.Linear.y > -1)
+                    {
+                        if (UnityEngine.Random.Range(0, 2) == 0)
+                        {
+                            vel.Linear.y = -asteroidData.LinearVelocity.y * asteroidData.LinearVelocity.y;
+                        }
+                        else
+                        {
+                            vel.Linear.y = asteroidData.LinearVelocity.y * asteroidData.LinearVelocity.y;
+                        }
+                    }
+                    if (vel.Linear.z < 1 && vel.Linear.z > -1)
+                    {
+                        if (UnityEngine.Random.Range(0, 2) == 0)
+                        {
+                            vel.Linear.z = -asteroidData.LinearVelocity.z * asteroidData.LinearVelocity.z;
+                        }
+                        else
+                        {
+                            vel.Linear.z = asteroidData.LinearVelocity.z * asteroidData.LinearVelocity.z;                         }
+                    }
+                    #endregion
                 }
             }).WithoutBurst().Run();// needed to write external vars (currently a bug in this version of unity
                                     //.run should work by it self)

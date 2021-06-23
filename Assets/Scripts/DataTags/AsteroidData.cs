@@ -18,7 +18,7 @@ public struct AsteroidData : IComponentData
     public bool Hit;
     public bool Dead;
     public int Health;
-    public float Speed;
+    public float3 LinearVelocity;
     public float4x4 currentAsteroidScale;
     public float4x4 asteroidLargeScale;
     public float4x4 asteroidMediumScale;

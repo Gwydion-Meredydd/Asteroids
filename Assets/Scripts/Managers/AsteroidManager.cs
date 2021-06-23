@@ -157,9 +157,8 @@ public class AsteroidManager : MonoBehaviour
     }
 
     //used to clear memeory on close VERY IMPORTANT!!!!!!!!!
-    private void OnApplicationQuit()
+    public void ClearMemory() 
     {
-        Debug.Log("Quit Called");
         foreach (Entity entity in spawnedAsteroids)
         {
             entityManager.DestroyEntity(entity);
@@ -184,5 +183,10 @@ public class AsteroidManager : MonoBehaviour
             blobAssetStore.Dispose();
             blobAssetStore = null;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        ClearMemory();
     }
 }

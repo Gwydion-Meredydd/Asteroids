@@ -13408,6 +13408,7 @@ MonoBehaviour:
   leftKey: 97
   rightKey: 100
   hyperJumpKey: 104
+  PauseMenuKey: 27
 --- !u!114 &5858808361174672648
 MonoBehaviour:
   m_ObjectHideFlags: 0

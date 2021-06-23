@@ -100,7 +100,10 @@ MonoBehaviour:
   Hit: 0
   Dead: 0
   Health: 3
-  Speed: 0
+  LinearVelocity:
+    x: -20
+    y: 20
+    z: 20
   currentAsteroidScale:
     c0:
       x: 0
@@ -199,13 +202,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MotionType: 0
   m_Smoothing: 0
-  m_Mass: 1
+  m_Mass: 0.001
   m_LinearDamping: 0.01
   m_AngularDamping: 0.05
   m_InitialLinearVelocity:
-    x: -10
-    y: 10
-    z: 10
+    x: -20
+    y: 20
+    z: 20
   m_InitialAngularVelocity:
     x: 5
     y: 5
@@ -281,19 +284,19 @@ MonoBehaviour:
   m_ForceUnique: 0
   m_Material:
     m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
+    m_Template: {fileID: 11400000, guid: e11bf692467cd6948b1ac0a4caffcb78, type: 2}
     m_CollisionResponse:
       m_Override: 0
       m_Value: 0
     m_Friction:
       m_Override: 0
       m_Value:
-        Value: 0.5
+        Value: 0
         CombineMode: 0
     m_Restitution:
       m_Override: 0
       m_Value:
-        Value: 0
+        Value: 1
         CombineMode: 2
     m_BelongsToCategories:
       m_Override: 0

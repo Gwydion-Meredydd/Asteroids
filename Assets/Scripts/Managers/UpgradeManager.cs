@@ -137,9 +137,12 @@ public class UpgradeManager : MonoBehaviour
                     {
                         case 1:
                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity2[0];
+                            ShipManager.Instance.Health = 4;
+                            UserInterfaceManager.Instance.UpdateHealth();
                             break;
                         case 2:
                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity2[1];
+                            ShipManager.Instance.CanHyperJump = true;
                             break;
                     }
                     break;
@@ -148,9 +151,12 @@ public class UpgradeManager : MonoBehaviour
                     {
                         case 1:
                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity2[2];
+                            ShipManager.Instance.Health = 4;
+                            UserInterfaceManager.Instance.UpdateHealth();
                             break;
                         case 2:
                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity2[3];
+                            ShipManager.Instance.CanHyperJump = true;
                             break;
                     }
                     break;
@@ -238,9 +244,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[0];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[1];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -249,9 +262,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[2];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[3];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -265,9 +285,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[4];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[5];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -276,9 +303,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[6];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[7];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -297,9 +331,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[8];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[9];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -308,9 +349,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[10];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[11];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -324,9 +372,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[12];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[13];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -335,9 +390,16 @@ public class UpgradeManager : MonoBehaviour
                                     {
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[14];
+                                            ShipManager.Instance.Health = 5;
+                                            UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[15];
+                                            ShipManager.Instance.currentShipSpeed = 80;
+                                            ShipManager.Instance.currentShipStrafeSpeed = 80;
+                                            ShipManager.Instance.currentShipAcceleration = 30;
+                                            ShipManager.Instance.currentStrafeAcceleration = 30;
+                                            ShipManager.Instance.currentRollAcceleration = 30;
                                             break;
                                     }
                                     break;
@@ -359,7 +421,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     //used to clear memeory on close VERY IMPORTANT!!!!!!!!!
-    private void OnApplicationQuit()
+    public void ClearMemory() 
     {
         foreach (Entity upgrades in UpgradeEntitis)
         {
@@ -370,6 +432,10 @@ public class UpgradeManager : MonoBehaviour
             blobAssetStore.Dispose();
             blobAssetStore = null;
         }
+    }
+    private void OnApplicationQuit()
+    {
+        ClearMemory();
     }
     #region SummarySection
     /// <summary>
