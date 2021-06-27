@@ -84,7 +84,6 @@ public class UpgradeManager : MonoBehaviour
     public void SpawnDropUpgrade() 
     {
         SpawnNewDrop = false;
-        Debug.Log("SPANING UPGRADE DROP");
         Entity SpawnUpgradeItem = entityManager.Instantiate(UpgradeEntitis[UnityEngine.Random.Range(0, MaxRandomSpawnValue)]);
         entityManager.SetComponentData(SpawnUpgradeItem, new Translation { Value = SpawnNewDropPos });
         SpawnedEntetis.Add(SpawnUpgradeItem);
@@ -93,7 +92,6 @@ public class UpgradeManager : MonoBehaviour
 
     public void RemoveDrop() 
     {
-        Debug.Log("Removing entity");
         SpawnedEntetis.Remove(entityToRemove);
         removeEntity = false;
         entityManager.DestroyEntity(entityToRemove);
@@ -119,6 +117,9 @@ public class UpgradeManager : MonoBehaviour
                     ShipManager.Instance.currentStrafeAcceleration = 15;
                     ShipManager.Instance.currentRollAcceleration = 15;
                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity1[0];
+                    EnemyManager.Instance.MoveSpeed = 34;
+                    EnemyManager.Instance.RotationSpeed = 5;
+                    EnemyManager.Instance.UpdateShipVeriables = true;
                     break;
                 case 2:
                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity1[1];
@@ -138,6 +139,10 @@ public class UpgradeManager : MonoBehaviour
                         case 1:
                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity2[0];
                             ShipManager.Instance.Health = 4;
+                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                            {
+                                sparks.Stop();
+                            }
                             UserInterfaceManager.Instance.UpdateHealth();
                             break;
                         case 2:
@@ -152,6 +157,10 @@ public class UpgradeManager : MonoBehaviour
                         case 1:
                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity2[2];
                             ShipManager.Instance.Health = 4;
+                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                            {
+                                sparks.Stop();
+                            }
                             UserInterfaceManager.Instance.UpdateHealth();
                             break;
                         case 2:
@@ -245,6 +254,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[0];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -254,6 +267,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;
@@ -263,6 +279,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[2];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -272,6 +292,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;
@@ -286,6 +309,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[4];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -295,6 +322,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;
@@ -304,6 +334,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[6];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -313,6 +347,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;
@@ -332,6 +369,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[8];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -341,6 +382,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;
@@ -350,6 +394,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[10];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -359,6 +407,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;
@@ -373,6 +424,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[12];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -382,6 +437,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;
@@ -391,6 +449,10 @@ public class UpgradeManager : MonoBehaviour
                                         case 1:
                                             ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity4[14];
                                             ShipManager.Instance.Health = 5;
+                                            foreach (ParticleSystem sparks in ShipManager.Instance.ShipSparks)
+                                            {
+                                                sparks.Stop();
+                                            }
                                             UserInterfaceManager.Instance.UpdateHealth();
                                             break;
                                         case 2:
@@ -400,6 +462,9 @@ public class UpgradeManager : MonoBehaviour
                                             ShipManager.Instance.currentShipAcceleration = 30;
                                             ShipManager.Instance.currentStrafeAcceleration = 30;
                                             ShipManager.Instance.currentRollAcceleration = 30;
+                                            EnemyManager.Instance.MoveSpeed = 68;
+                                            EnemyManager.Instance.RotationSpeed = 7;
+                                            EnemyManager.Instance.UpdateShipVeriables = true;
                                             break;
                                     }
                                     break;

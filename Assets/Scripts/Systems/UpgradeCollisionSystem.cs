@@ -15,7 +15,7 @@ public class UpgradeCollisionSystem : SystemBase
     protected bool InstantiateNewAsteroid;
     protected override void OnUpdate()
     {
-        Entities.ForEach((ref UpgradeData upgradeData, ref Entity ent) =>
+        Entities.WithAll<UpgradeData>().ForEach((ref UpgradeData upgradeData, ref Entity ent) =>
         {
             if (upgradeData.HasCollided)
             {

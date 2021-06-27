@@ -14,8 +14,10 @@ using Unity.Entities;
 [GenerateAuthoringComponent]
 public struct ShipData : IComponentData
 {
+    public float3 Pos;
     public float3 Direction;
     public bool Teleport;
+    public bool Hit;
     public float hoverSpeed;
     public float activeForwardSpeed, activeStrafeSpeed;
 

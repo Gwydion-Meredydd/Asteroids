@@ -15,6 +15,7 @@ public class UserInterfaceManager : MonoBehaviour
     public GameObject GameUI;
     public GameObject MainMenuUI;
     public GameObject PauseMenuUI;
+    public GameObject DeathUI;
 
     [Header ("in Game UI")]
     public GameObject[] UpgradeUI;
@@ -30,6 +31,8 @@ public class UserInterfaceManager : MonoBehaviour
     [Space]
     private int HelpMenuIndexValue;
     public GameObject[] HelpMenus;
+    [Header("Death Screen UI")]
+    public Text DeathScore;
 
 
     private void Awake()
@@ -157,6 +160,7 @@ public class UserInterfaceManager : MonoBehaviour
         GameUI.SetActive(false);
         GameManager.Instance.Paused = true;
         GameManager.Instance.InGame = false;
+        Cursor.visible = true;
         Time.timeScale = 0;
     }
     public void PauseMenuDisablePauseMenu() 
@@ -165,6 +169,7 @@ public class UserInterfaceManager : MonoBehaviour
         GameUI.SetActive(true);
         GameManager.Instance.Paused = false;
         GameManager.Instance.InGame = true;
+        Cursor.visible = false;
         Time.timeScale = 1;
     }
     //called from shipsystem
@@ -185,6 +190,7 @@ public class UserInterfaceManager : MonoBehaviour
         ShipManager.Instance.ClearMemeory();
         AsteroidManager.Instance.ClearMemory();
         UpgradeManager.Instance.ClearMemory();
+        EnemyManager.Instance.ClearMemeory();
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
@@ -282,7 +288,13 @@ public class UserInterfaceManager : MonoBehaviour
     }
     #endregion
 
-
+    public void EnableDeathUI() 
+    {
+        PauseMenuUI.SetActive(false);
+        GameUI.SetActive(false);
+        DeathUI.SetActive(true);
+        DeathScore.text = ScoreManger.Instance.currentScore.ToString();
+    }
     //called from main menu and pause menu
     #region Global Options
     public void QualitySettingsChange(int QualitySettingsValue) 

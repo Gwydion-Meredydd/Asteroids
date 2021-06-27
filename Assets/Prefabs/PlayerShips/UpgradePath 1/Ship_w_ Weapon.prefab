@@ -4699,11 +4699,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1fc989ea356b343b72c65cef03d886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pos:
+    x: 0
+    y: 0
+    z: 0
   Direction:
     x: 0
     y: 0
     z: 0
   Teleport: 0
+  Hit: 0
   hoverSpeed: 20
   activeForwardSpeed: 0
   activeStrafeSpeed: 0

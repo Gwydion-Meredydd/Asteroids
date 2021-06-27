@@ -43,16 +43,22 @@ public class ShipManager : MonoBehaviour
     public float currentShipAcceleration, currentStrafeAcceleration, currentRollAcceleration;
     public bool CanHyperJump;
     public int Health;
-    
+
     [Header("Misc Items")]
+    public bool ShipDied;
     public GameObject ShipLazerPrefab;
+    public GameObject SparksPrefab;
+    public GameObject ExplosionPrefab;
     public ShipData shipdata;
     private Vector2 screenCenter;
     public List <ParticleSystem> ShipLazers;
+    public List<ParticleSystem> ShipSparks;
+    public ParticleSystem ShipExplosion;
     private Resolution currentRes;
     public Entity HitObject;
     public float ShootSpeed;
     public bool CanShoot;
+    public bool isMoving;
 
     [Header("Camera Tracking")]
     public Transform ShipCamera;
@@ -167,6 +173,26 @@ public class ShipManager : MonoBehaviour
         ShipLazers.Add(TempShootVar.GetComponent<ParticleSystem>());
     }
 
+    //called from shoot ship system to instantiate shootpoints and laser particle systems
+    public void SparkParticleSystemInstantiated(float3 Pos)
+    {
+        var TempSparkVar = GameObject.Instantiate(SparksPrefab, Pos, new Quaternion(0, 0, 0, 0));
+        TempSparkVar.transform.parent = ShipCamera;
+        TempSparkVar.transform.rotation = new Quaternion(0, 0, 0, 0);
+        TempSparkVar.transform.localPosition = Pos;
+        ShipSparks.Add(TempSparkVar.GetComponent<ParticleSystem>());
+    }
+
+    //called from shoot ship system to instantiate shootpoints and laser particle systems
+    public void ExplosionParticleSystemInstantiated(float3 Pos)
+    {
+        var TempSparkVar = GameObject.Instantiate(ExplosionPrefab, Pos, new Quaternion(0, 0, 0, 0));
+        TempSparkVar.transform.parent = ShipCamera;
+        TempSparkVar.transform.rotation = new Quaternion(0, 0, 0, 0);
+        TempSparkVar.transform.localPosition = Pos;
+        ShipExplosion = TempSparkVar.GetComponent<ParticleSystem>();
+    }
+
     //Shoots Lazer Particles Only if there is lazer particles to be played
     public void ShootParticles() 
     {
@@ -184,6 +210,27 @@ public class ShipManager : MonoBehaviour
         yield return new WaitForSeconds(ShootSpeed);
         CanShoot = true;
     }
+
+    #region Destroys Player Ship and calls eneable death ui 
+    public void DestroyShip() 
+    {
+        ShipDied = true;
+        StartCoroutine(DestoryShipTiming());
+    }
+    IEnumerator DestoryShipTiming()
+    {
+        ShipExplosion.Play();
+        AudioManager.Instance.PlayPlayerExplsoion();
+        yield return new WaitForSeconds(0.5f);
+        ClearMemeory();
+        GameManager.Instance.InMenu = true;
+        UserInterfaceManager.Instance.EnableDeathUI();
+        ShipSparks[0].Stop();
+        ShipSparks[1].Stop();
+        Cursor.visible = true;
+    }
+    #endregion
+
 
     //used to clear memeory on close VERY IMPORTANT!!!!!!!!!
     public void ClearMemeory() 

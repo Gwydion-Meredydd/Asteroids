@@ -19,7 +19,7 @@ public class ShipSystem : SystemBase
     protected override void OnUpdate()
     {
         float deltaTime = Time.DeltaTime;
-        Entities.ForEach((ref ShipData shipData, ref Translation pos, in PlayerInputData playerInputData) =>
+        Entities.WithAll<ShipData>().ForEach((ref ShipData shipData, ref Translation pos, in PlayerInputData playerInputData) =>
         {
             if (!GameManager.Instance.InMenu)
             {
@@ -65,10 +65,12 @@ public class ShipSystem : SystemBase
                     {
 
                         AudioManager.Instance.PlayPlayerMove();
+                        ShipManager.Instance.isMoving = true;
                     }
                     else
                     {
                         AudioManager.Instance.StopPlayerMove();
+                        ShipManager.Instance.isMoving = false;
                     }
                 }
             }

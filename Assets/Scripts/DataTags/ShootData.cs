@@ -14,6 +14,7 @@ public struct ShootData : IComponentData
 {
     public Entity HitObject;
     public AsteroidData asteroidData;
+    public EnemyShipData enemyShipData;
     public Vector3 ShootPoint;
     public bool ShootParticleSystemInstantiated;
 }

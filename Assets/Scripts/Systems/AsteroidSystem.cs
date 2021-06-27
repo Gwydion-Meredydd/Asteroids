@@ -21,7 +21,7 @@ public class AsteroidSystem : SystemBase
         if (!AsteroidManager.Instance.RemoveEnityQueue)
         {
             float deltatime = Time.DeltaTime;
-            Entities.ForEach((ref CompositeScale scale, ref AsteroidData asteroid, ref PhysicsVelocity vel, ref Entity ent, in Translation pos, in AsteroidData asteroidData) =>
+            Entities.WithAll<AsteroidData>().ForEach((ref CompositeScale scale, ref AsteroidData asteroid, ref PhysicsVelocity vel, ref Entity ent, in Translation pos, in AsteroidData asteroidData) =>
             {
                 if (!AsteroidManager.Instance.RemoveEnityQueue)
                 {

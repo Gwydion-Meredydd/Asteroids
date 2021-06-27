@@ -18,9 +18,12 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     public AudioSource SFXWorldAudioSource;
     public AudioSource SFXShipAudioSource;
+    public AudioSource SFXEnemyAudioSource;
     [Header("Audio Clips")]
     public AudioClip[] RockDestoryed;
     public AudioClip[] PlayerShoot;
+    public AudioClip PlayerExplosion;
+    public AudioClip[] EnemyShoot;
     public AudioClip ShipThrusters;
 
     private void Awake()
@@ -35,6 +38,14 @@ public class AudioManager : MonoBehaviour
     public void PlayPlayerShoot()
     {
         SFXWorldAudioSource.PlayOneShot(PlayerShoot[Random.Range(0, PlayerShoot.Length)]);
+    }
+    public void PlayEnemyShoot()
+    {
+        SFXEnemyAudioSource.PlayOneShot(EnemyShoot[Random.Range(0, EnemyShoot.Length)]);
+    }
+    public void PlayPlayerExplsoion() 
+    {
+        SFXWorldAudioSource.PlayOneShot(PlayerExplosion);
     }
     public void PlayPlayerMove() 
     {

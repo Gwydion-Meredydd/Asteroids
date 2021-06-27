@@ -28,7 +28,7 @@ public class ShipShootSystem : SystemBase
             {
                 AudioManager.Instance.PlayPlayerShoot();
                 ShipManager.Instance.ShootParticles();
-                Entities.ForEach((ref ShootData shootData, in Translation pos, in LocalToWorld ltw, in LocalToParent ltp) =>
+                Entities.WithAll<ShootData>().ForEach((ref ShootData shootData, in Translation pos, in LocalToWorld ltw, in LocalToParent ltp) =>
                 {
                     //initlises the lasers particle systems via shipmanager method
                     if (!shootData.ShootParticleSystemInstantiated)
@@ -65,7 +65,19 @@ public class ShipShootSystem : SystemBase
                         }
                         catch (Exception e)
                         {
-                            Debug.Log("failed  " + e.ToString());
+                            e = null;
+                        }
+                        try
+                        {
+                            //shoots enemy
+                            shootData.enemyShipData = new EnemyShipData();
+                            shootData.enemyShipData = EntityManager.GetComponentData<EnemyShipData>(hitobject);
+                            EnemyManager.Instance.ShipToDestroy = hitobject;
+                            EnemyManager.Instance.DestroyShip();
+                        }
+                        catch (Exception e)
+                        {
+                            e = null;
                         }
                     }
                 }).WithoutBurst().Run();// needed to write external vars (currently a bug in this version of unity

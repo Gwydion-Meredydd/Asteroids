@@ -6078,11 +6078,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1fc989ea356b343b72c65cef03d886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pos:
+    x: 0
+    y: 0
+    z: 0
   Direction:
     x: 0
     y: 0
     z: 0
   Teleport: 0
+  Hit: 0
   hoverSpeed: 20
   activeForwardSpeed: 0
   activeStrafeSpeed: 0
@@ -9669,13 +9674,13 @@ MonoBehaviour:
     m_Friction:
       m_Override: 0
       m_Value:
-        Value: 0.5
-        CombineMode: 0
+        Value: 9.642871e-39
+        CombineMode: 116
     m_Restitution:
       m_Override: 0
       m_Value:
-        Value: 0
-        CombineMode: 2
+        Value: 8.908196e-39
+        CombineMode: 105
     m_BelongsToCategories:
       m_Override: 0
       m_Value:
@@ -9749,14 +9754,14 @@ MonoBehaviour:
     m_CustomMaterialTags:
       m_Override: 0
       m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
+        Tag00: 176
+        Tag01: 78
+        Tag02: 119
         Tag03: 0
         Tag04: 0
         Tag05: 0
         Tag06: 0
-        Tag07: 0
+        Tag07: 9
     m_SerializedVersion: 1
   m_SerializedVersion: 1
 --- !u!1 &1167678000424078387
