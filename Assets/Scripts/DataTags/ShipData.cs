@@ -27,4 +27,5 @@ public struct ShipData : IComponentData
     public float lookRateSpeed;
     public Vector2 lookInput, screenCenter, mouseDistance;
     public Resolution currentRes;
+    public bool hasHitAsteroid;
 }

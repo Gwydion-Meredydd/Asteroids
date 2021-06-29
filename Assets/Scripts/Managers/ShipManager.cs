@@ -43,17 +43,25 @@ public class ShipManager : MonoBehaviour
     public float currentShipAcceleration, currentStrafeAcceleration, currentRollAcceleration;
     public bool CanHyperJump;
     public int Health;
+    public bool SheidlActive;
+    public bool ShieldProtection;
+    public float MaxShieldTime;
+    public float CurrentShieldTime;
+
 
     [Header("Misc Items")]
     public bool ShipDied;
+    public bool CanAsteroidDamage;
     public GameObject ShipLazerPrefab;
     public GameObject SparksPrefab;
     public GameObject ExplosionPrefab;
+    public GameObject ShieldPrefab;
     public ShipData shipdata;
     private Vector2 screenCenter;
-    public List <ParticleSystem> ShipLazers;
+    public List<ParticleSystem> ShipLazers;
     public List<ParticleSystem> ShipSparks;
     public ParticleSystem ShipExplosion;
+    public ParticleSystem ShipShield;
     private Resolution currentRes;
     public Entity HitObject;
     public float ShootSpeed;
@@ -97,7 +105,7 @@ public class ShipManager : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.InGame) 
+        if (GameManager.Instance.InGame)
         {
             if (blobAssetStore != null)
             {
@@ -164,9 +172,9 @@ public class ShipManager : MonoBehaviour
     }
 
     //called from shoot ship system to instantiate shootpoints and laser particle systems
-    public void ShootParticleSystemInstantiated(float3 Pos) 
+    public void ShootParticleSystemInstantiated(float3 Pos)
     {
-        var TempShootVar = GameObject.Instantiate(ShipLazerPrefab, Pos, new Quaternion(0,0,0,0));
+        var TempShootVar = GameObject.Instantiate(ShipLazerPrefab, Pos, new Quaternion(0, 0, 0, 0));
         TempShootVar.transform.parent = ShipCamera;
         TempShootVar.transform.rotation = new Quaternion(0, 0, 0, 0);
         TempShootVar.transform.localPosition = Pos;
@@ -184,17 +192,23 @@ public class ShipManager : MonoBehaviour
     }
 
     //called from shoot ship system to instantiate shootpoints and laser particle systems
-    public void ExplosionParticleSystemInstantiated(float3 Pos)
+    public void ExplosionandShieldParticleSystemInstantiated(float3 Pos)
     {
-        var TempSparkVar = GameObject.Instantiate(ExplosionPrefab, Pos, new Quaternion(0, 0, 0, 0));
-        TempSparkVar.transform.parent = ShipCamera;
-        TempSparkVar.transform.rotation = new Quaternion(0, 0, 0, 0);
-        TempSparkVar.transform.localPosition = Pos;
-        ShipExplosion = TempSparkVar.GetComponent<ParticleSystem>();
+        var TempExplosionVar = GameObject.Instantiate(ExplosionPrefab, Pos, new Quaternion(0, 0, 0, 0));
+        TempExplosionVar.transform.parent = ShipCamera;
+        TempExplosionVar.transform.rotation = new Quaternion(0, 0, 0, 0);
+        TempExplosionVar.transform.localPosition = Pos;
+        ShipExplosion = TempExplosionVar.GetComponent<ParticleSystem>();
+
+        var TempShieldVar = GameObject.Instantiate(ShieldPrefab, Pos, new Quaternion(0, 0, 0, 0));
+        TempShieldVar.transform.parent = ShipCamera;
+        TempShieldVar.transform.rotation = new Quaternion(0, 0, 0, 0);
+        TempShieldVar.transform.localPosition = Pos;
+        ShipShield = TempShieldVar.GetComponent<ParticleSystem>();
     }
 
     //Shoots Lazer Particles Only if there is lazer particles to be played
-    public void ShootParticles() 
+    public void ShootParticles()
     {
         if (ShipLazers.Count == 0) { return; }
         foreach (ParticleSystem Laser in ShipLazers)
@@ -212,7 +226,7 @@ public class ShipManager : MonoBehaviour
     }
 
     #region Destroys Player Ship and calls eneable death ui 
-    public void DestroyShip() 
+    public void DestroyShip()
     {
         ShipDied = true;
         StartCoroutine(DestoryShipTiming());
@@ -231,6 +245,75 @@ public class ShipManager : MonoBehaviour
     }
     #endregion
 
+    #region Sheild methods called from shipsystem
+    public void EnableShield()
+    {
+        if (CurrentShieldTime > 5)
+        {
+            ShipShield.Play();
+            StartCoroutine(ShieldTimingSubtact());
+            SheidlActive = true;
+        }
+    }
+
+    IEnumerator ShieldTimingSubtact()
+    {
+        ShieldProtection = true;
+        AudioManager.Instance.PlayShieldSfx();
+        CurrentShieldTime = CurrentShieldTime - 0.1f;
+        UserInterfaceManager.Instance.UpdateShieldTime();
+        yield return new WaitForSeconds(0.1f);
+        if (CurrentShieldTime > 0 && SheidlActive)
+        {
+            StartCoroutine(ShieldTimingSubtact());
+        }
+        else
+        {
+            ShieldProtection = false;
+            AudioManager.Instance.StopShieldSfx();
+            ShipShield.Stop();
+            UserInterfaceManager.Instance.UpdateShieldTime();
+        }
+        if (CurrentShieldTime <= 0 && SheidlActive)
+        {
+            AudioManager.Instance.StopShieldSfx();
+            CurrentShieldTime = 0;
+        }
+    }
+    public void DisableShield()
+    {
+        if (ShipShield != null)
+        {
+            SheidlActive = false;
+            ShipShield.Stop();
+            AudioManager.Instance.StopShieldSfx();
+            StartCoroutine(ShieldTimingAdd());
+        }
+    }
+    IEnumerator ShieldTimingAdd()
+    {
+        ShieldProtection = false;
+        CurrentShieldTime = CurrentShieldTime + 0.1f;
+        UserInterfaceManager.Instance.UpdateShieldTime();
+        yield return new WaitForSeconds(0.1f);
+        if (CurrentShieldTime < MaxShieldTime && !SheidlActive)
+        {
+            StartCoroutine(ShieldTimingAdd());
+        }
+    }
+    #endregion
+
+    #region Cooldown for asteroid Damage
+    public void AsteroidCoolDown()
+    {
+        StartCoroutine(AsteroidCoolDownTiming());
+    }
+    IEnumerator AsteroidCoolDownTiming() 
+    {
+        yield return new WaitForSeconds(5f);
+        CanAsteroidDamage = true;
+    }
+    #endregion
 
     //used to clear memeory on close VERY IMPORTANT!!!!!!!!!
     public void ClearMemeory() 
@@ -257,6 +340,7 @@ public class ShipManager : MonoBehaviour
         ShipUpgradeBranchEntity4 = new Entity[0];
         entityManager.DestroyEntity(DefaultShipEntity);
         entityManager.DestroyEntity(CurrentShip);
+        entityManager.CompleteAllJobs();
         if (blobAssetStore != null)
         {
             blobAssetStore.Dispose();

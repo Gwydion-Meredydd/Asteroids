@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 593806c5fb8b33c42ad7884def953a62
+  - enabled: 1
+    path: Assets/Scenes/GameScene/WorldColliders.unity
+    guid: 9142b6830a8dd3440bb2e6dd77802b40
   m_configObjects: {}

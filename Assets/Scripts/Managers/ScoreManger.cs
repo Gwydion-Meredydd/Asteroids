@@ -16,4 +16,16 @@ public class ScoreManger : MonoBehaviour
     {
         Instance = this;
     }
+
+    //for highscore loading and fetching
+    //in a released product binaray saving would be used
+    public void SetScore(string GameScore, float Value)
+    {
+        PlayerPrefs.SetFloat(GameScore, Value);
+    }
+
+    public float GetScore(string GameScore)
+    {
+        return PlayerPrefs.GetFloat(GameScore);
+    }
 }

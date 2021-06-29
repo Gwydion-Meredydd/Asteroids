@@ -186,6 +186,8 @@ public class UpgradeManager : MonoBehaviour
                             {
                                 case 1:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[0];
+                                    ShipManager.Instance.MaxShieldTime = 20;
+                                    ShipManager.Instance.CurrentShieldTime = 20;
                                     break;
                                 case 2:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[1];
@@ -197,6 +199,8 @@ public class UpgradeManager : MonoBehaviour
                             {
                                 case 1:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[2];
+                                    ShipManager.Instance.MaxShieldTime = 20;
+                                    ShipManager.Instance.CurrentShieldTime = 20;
                                     break;
                                 case 2:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[3];
@@ -213,6 +217,8 @@ public class UpgradeManager : MonoBehaviour
                             {
                                 case 1:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[4];
+                                    ShipManager.Instance.MaxShieldTime = 20;
+                                    ShipManager.Instance.CurrentShieldTime = 20;
                                     break;
                                 case 2:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[5];
@@ -224,6 +230,8 @@ public class UpgradeManager : MonoBehaviour
                             {
                                 case 1:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[6];
+                                    ShipManager.Instance.MaxShieldTime = 20;
+                                    ShipManager.Instance.CurrentShieldTime = 20;
                                     break;
                                 case 2:
                                     ShipManager.Instance.ShipUpgrade = ShipManager.Instance.ShipUpgradeBranchEntity3[7];
@@ -492,6 +500,7 @@ public class UpgradeManager : MonoBehaviour
         {
             entityManager.DestroyEntity(upgrades);
         }
+        entityManager.CompleteAllJobs();
         if (blobAssetStore != null)
         {
             blobAssetStore.Dispose();

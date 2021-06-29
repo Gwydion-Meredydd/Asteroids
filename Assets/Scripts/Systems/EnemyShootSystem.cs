@@ -57,35 +57,37 @@ public class EnemyShootSystem : SystemBase
                                 if (hitobject != null)
                                 {
                                     Debug.Log("cAN SHOOT 3");
-                                    
-                                    ShipManager.Instance.Health -= 1;
-                                    UserInterfaceManager.Instance.UpdateHealth();
-                                    
-                                    //creates the ship to spark when damage 
-                                    if (ShipManager.Instance.Health > 2)
+                                    if (!ShipManager.Instance.ShieldProtection)
                                     {
-                                        if (ShipManager.Instance.ShipSparks[0].isPlaying)
+                                        ShipManager.Instance.Health -= 1;
+                                        UserInterfaceManager.Instance.UpdateHealth();
+
+                                        //creates the ship to spark when damage 
+                                        if (ShipManager.Instance.Health > 2)
                                         {
-                                            ShipManager.Instance.ShipSparks[0].Stop();
+                                            if (ShipManager.Instance.ShipSparks[0].isPlaying)
+                                            {
+                                                ShipManager.Instance.ShipSparks[0].Stop();
+                                            }
+                                            if (ShipManager.Instance.ShipSparks[1].isPlaying)
+                                            {
+                                                ShipManager.Instance.ShipSparks[1].Stop();
+                                            }
                                         }
-                                        if (ShipManager.Instance.ShipSparks[1].isPlaying)
+                                        else if (ShipManager.Instance.Health == 2)
                                         {
-                                            ShipManager.Instance.ShipSparks[1].Stop();
+                                            ShipManager.Instance.ShipSparks[0].Play();
                                         }
-                                    }
-                                    else if (ShipManager.Instance.Health == 2)
-                                    {
-                                        ShipManager.Instance.ShipSparks[0].Play();
-                                    }
-                                    else if (ShipManager.Instance.Health == 1)
-                                    {
-                                        ShipManager.Instance.ShipSparks[1].Play();
-                                    }
-                                    else if (ShipManager.Instance.Health <= 0)
-                                    {
-                                        if (!ShipManager.Instance.ShipDied)
+                                        else if (ShipManager.Instance.Health == 1)
                                         {
-                                            ShipManager.Instance.DestroyShip();
+                                            ShipManager.Instance.ShipSparks[1].Play();
+                                        }
+                                        else if (ShipManager.Instance.Health <= 0)
+                                        {
+                                            if (!ShipManager.Instance.ShipDied)
+                                            {
+                                                ShipManager.Instance.DestroyShip();
+                                            }
                                         }
                                     }
                                 }

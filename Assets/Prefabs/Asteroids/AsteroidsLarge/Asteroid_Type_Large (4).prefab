@@ -286,7 +286,7 @@ MonoBehaviour:
     m_SupportsTemplate: 1
     m_Template: {fileID: 11400000, guid: e11bf692467cd6948b1ac0a4caffcb78, type: 2}
     m_CollisionResponse:
-      m_Override: 0
+      m_Override: 1
       m_Value: 0
     m_Friction:
       m_Override: 0

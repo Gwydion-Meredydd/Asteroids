@@ -22,6 +22,7 @@ public class UserInterfaceManager : MonoBehaviour
     public GameObject ScoreUI;
     public Text ScoreText;
     public GameObject[] HealthIcons;
+    public Text SheildTime;
 
     [Header("MainMenu UI")]
     public GameObject TitleMenu;
@@ -33,6 +34,7 @@ public class UserInterfaceManager : MonoBehaviour
     public GameObject[] HelpMenus;
     [Header("Death Screen UI")]
     public Text DeathScore;
+    public Text HighScore;
 
 
     private void Awake()
@@ -221,6 +223,12 @@ public class UserInterfaceManager : MonoBehaviour
         }
     }
 
+    //updates shield time ui
+    public void UpdateShieldTime() 
+    {
+        SheildTime.text = ShipManager.Instance.CurrentShieldTime.ToString();
+    }
+
     //Allows the player to move again and disables the Upgrade UI
     public void DisableUpgradeUI() 
     {
@@ -294,6 +302,11 @@ public class UserInterfaceManager : MonoBehaviour
         GameUI.SetActive(false);
         DeathUI.SetActive(true);
         DeathScore.text = ScoreManger.Instance.currentScore.ToString();
+        if (ScoreManger.Instance.GetScore("score") < ScoreManger.Instance.currentScore) 
+        {
+            ScoreManger.Instance.SetScore("score", ScoreManger.Instance.currentScore);
+        }
+        HighScore.text = ScoreManger.Instance.GetScore("score").ToString();
     }
     //called from main menu and pause menu
     #region Global Options

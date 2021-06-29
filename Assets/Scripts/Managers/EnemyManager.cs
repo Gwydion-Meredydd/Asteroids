@@ -236,6 +236,7 @@ public class EnemyManager : MonoBehaviour
         }
         SpawnedEnemies = new List<Entity>();
         entityManager.DestroyEntity(EnemyShipEntity);
+        entityManager.CompleteAllJobs();
         if (blobAssetStore != null)
         {
             blobAssetStore.Dispose();

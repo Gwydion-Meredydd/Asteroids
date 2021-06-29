@@ -9,6 +9,7 @@ using Unity.Entities;
 #region SummarySection
 /// <summary>
 /// system class thats respobbile for taking input data and converting into movement data for the ship move system to use
+///also removes health from asteroids collisins 
 /// </summary>
 /// <param name="ShipSystem"></param>
 
@@ -19,7 +20,7 @@ public class ShipSystem : SystemBase
     protected override void OnUpdate()
     {
         float deltaTime = Time.DeltaTime;
-        Entities.WithAll<ShipData>().ForEach((ref ShipData shipData, ref Translation pos, in PlayerInputData playerInputData) =>
+        Entities.WithAll<ShipData>().ForEach((ref ShipData shipData, ref Translation pos,ref ShipAsteroidCollisionData shipCollisionData, in PlayerInputData playerInputData) =>
         {
             if (!GameManager.Instance.InMenu)
             {
@@ -30,6 +31,7 @@ public class ShipSystem : SystemBase
                 bool isDownKeyPressed = Input.GetKey(playerInputData.downKey);
                 bool isHPressed = Input.GetKeyDown(playerInputData.hyperJumpKey);
                 bool isEscapeKeyPressed = Input.GetKeyDown(playerInputData.PauseMenuKey);
+                bool isSpaceKeyPressed = Input.GetKey(playerInputData.SheidlKey);
 
                 //converts booleans to floats
                 float horizontalValue = Convert.ToInt32(isRightKeyPressed);
@@ -71,6 +73,57 @@ public class ShipSystem : SystemBase
                     {
                         AudioManager.Instance.StopPlayerMove();
                         ShipManager.Instance.isMoving = false;
+                    }
+                }
+                if (isSpaceKeyPressed && !ShipManager.Instance.SheidlActive) 
+                {
+                    ShipManager.Instance.EnableShield();
+                }
+                else if (!isSpaceKeyPressed && ShipManager.Instance.SheidlActive)
+                {
+                    ShipManager.Instance.DisableShield();
+                }
+                if (ShipManager.Instance.CanAsteroidDamage)
+                {
+                    if (shipCollisionData.HasCollided)
+                    {
+                        if (!ShipManager.Instance.ShieldProtection)
+                        {
+                            ShipManager.Instance.Health -= 1;
+                            UserInterfaceManager.Instance.UpdateHealth();
+
+                            ShipManager.Instance.CanAsteroidDamage = false;
+                            ShipManager.Instance.AsteroidCoolDown();
+                            AudioManager.Instance.PlayMetalImpact();
+                            shipCollisionData.HasCollided = false;
+                            //creates the ship to spark when damage 
+                            if (ShipManager.Instance.Health > 2)
+                            {
+                                if (ShipManager.Instance.ShipSparks[0].isPlaying)
+                                {
+                                    ShipManager.Instance.ShipSparks[0].Stop();
+                                }
+                                if (ShipManager.Instance.ShipSparks[1].isPlaying)
+                                {
+                                    ShipManager.Instance.ShipSparks[1].Stop();
+                                }
+                            }
+                            else if (ShipManager.Instance.Health == 2)
+                            {
+                                ShipManager.Instance.ShipSparks[0].Play();
+                            }
+                            else if (ShipManager.Instance.Health == 1)
+                            {
+                                ShipManager.Instance.ShipSparks[1].Play();
+                            }
+                            else if (ShipManager.Instance.Health <= 0)
+                            {
+                                if (!ShipManager.Instance.ShipDied)
+                                {
+                                    ShipManager.Instance.DestroyShip();
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 686174757990740726}
   - component: {fileID: 686174757990740725}
   - component: {fileID: 686174757990740724}
+  - component: {fileID: 686174757990740731}
   - component: {fileID: 686174757990740730}
   - component: {fileID: 686174757990740729}
   - component: {fileID: 686174757990740728}
@@ -321,7 +322,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:
@@ -428,6 +429,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!114 &686174757990740731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686174757990740723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf72410b6627cd428f3b7e23f9733b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &686174758018886560
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -517,6 +530,7 @@ GameObject:
   - component: {fileID: 686174758018886562}
   - component: {fileID: 686174758018886561}
   - component: {fileID: 686174758018886560}
+  - component: {fileID: 686174758018886579}
   - component: {fileID: 686174758018886578}
   - component: {fileID: 686174758018886577}
   - component: {fileID: 686174758018886576}
@@ -589,7 +603,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:
@@ -733,6 +747,18 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &686174758018886579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686174758018886575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf72410b6627cd428f3b7e23f9733b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &686174758038436505
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +771,7 @@ GameObject:
   - component: {fileID: 686174758038436508}
   - component: {fileID: 686174758038436507}
   - component: {fileID: 686174758038436506}
+  - component: {fileID: 686174758038436513}
   - component: {fileID: 686174758038436512}
   - component: {fileID: 686174758038436511}
   - component: {fileID: 686174758038436510}
@@ -894,7 +921,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:
@@ -1038,6 +1065,18 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &686174758038436513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686174758038436505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf72410b6627cd428f3b7e23f9733b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &686174758358080937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &686174758358080938
 Transform:
   m_ObjectHideFlags: 0
@@ -10391,7 +10430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &686174758506605430
 Transform:
   m_ObjectHideFlags: 0
@@ -15188,7 +15227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &686174758668654789
 GameObject:
   m_ObjectHideFlags: 0
@@ -15206,7 +15245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &686174758668654790
 Transform:
   m_ObjectHideFlags: 0
@@ -19918,6 +19957,7 @@ GameObject:
   - component: {fileID: 686174759029015465}
   - component: {fileID: 686174759029015464}
   - component: {fileID: 686174759029015383}
+  - component: {fileID: 686174759029015387}
   - component: {fileID: 686174759029015386}
   - component: {fileID: 686174759029015385}
   - component: {fileID: 686174759029015384}
@@ -20003,7 +20043,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:
@@ -20147,6 +20187,18 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &686174759029015387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686174759029015382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf72410b6627cd428f3b7e23f9733b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &686174759029015464
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20223,6 +20275,7 @@ GameObject:
   - component: {fileID: 686174759049541436}
   - component: {fileID: 686174759049541435}
   - component: {fileID: 686174759049541434}
+  - component: {fileID: 686174759049541441}
   - component: {fileID: 686174759049541440}
   - component: {fileID: 686174759049541439}
   - component: {fileID: 686174759049541438}
@@ -20341,7 +20394,7 @@ MonoBehaviour:
     y: 0
     z: 0
   m_PrimitiveSize:
-    x: 1
+    x: 0.5
     y: 0
     z: 1
   m_PrimitiveOrientation:
@@ -20352,12 +20405,12 @@ MonoBehaviour:
     RotationOrder: 4
   m_Capsule:
     Height: 1
-    Radius: 0.5
+    Radius: 0.25
     Axis: 2
   m_Cylinder:
-    Height: 0
-    Radius: 0.5
-    Axis: 1
+    Height: 1
+    Radius: 0.25
+    Axis: 2
   m_CylinderSideCount: 20
   m_SphereRadius: 0.5
   m_MinimumSkinnedVertexWeight: 0.1
@@ -20372,7 +20425,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:
@@ -20516,6 +20569,18 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &686174759049541441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686174759049541433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf72410b6627cd428f3b7e23f9733b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &686174759198431943
 GameObject:
   m_ObjectHideFlags: 0
@@ -20533,7 +20598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &686174759198431960
 Transform:
   m_ObjectHideFlags: 0
@@ -25250,7 +25315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &686174759784340020
 Transform:
   m_ObjectHideFlags: 0
@@ -29977,6 +30042,7 @@ GameObject:
   - component: {fileID: 686174759793790647}
   - component: {fileID: 686174759793790646}
   - component: {fileID: 686174759793790645}
+  - component: {fileID: 686174759793790651}
   - component: {fileID: 686174759793790650}
   - component: {fileID: 686174759793790649}
   - component: {fileID: 686174759793790648}
@@ -30111,7 +30177,7 @@ MonoBehaviour:
     m_Template: {fileID: 0}
     m_CollisionResponse:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_Friction:
       m_Override: 0
       m_Value:
@@ -30255,3 +30321,15 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &686174759793790651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686174759793790644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf72410b6627cd428f3b7e23f9733b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

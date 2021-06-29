@@ -25,7 +25,7 @@ public class ShipExplosionSystem : SystemBase
             if (!explosionPointData.ExplosionParticleSystemInstantiated)
             {
                 explosionPointData.ExplosionParticleSystemInstantiated = true;
-                ShipManager.Instance.ExplosionParticleSystemInstantiated(pos.Value);
+                ShipManager.Instance.ExplosionandShieldParticleSystemInstantiated(pos.Value);
             }
         }).WithoutBurst().Run();// needed to write external vars (currently a bug in this version of unity
                                 //.run should work by it self)

@@ -16,5 +16,6 @@ public struct PlayerInputData : IComponentData
     public KeyCode leftKey;
     public KeyCode rightKey;
     public KeyCode hyperJumpKey;
+    public KeyCode SheidlKey;
     public KeyCode PauseMenuKey;
 }

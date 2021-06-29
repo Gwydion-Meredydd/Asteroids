@@ -19,7 +19,7 @@ public class ShipMoveSystem : SystemBase
         {
 
             float deltaTime = Time.DeltaTime;
-            Entities.WithAll<ShipData>().ForEach((ref Translation pos, ref Rotation rot, ref ShipData shipData, in LocalToWorld ltw) =>
+            Entities.WithAll<ShipData>().ForEach((ref Translation pos, ref Rotation rot, ref ShipData shipData,ref ShipWallCollisionData shipWallCollisionData, in LocalToWorld ltw) =>
             {
                 if (!shipData.Teleport)
                 {
@@ -32,9 +32,21 @@ public class ShipMoveSystem : SystemBase
                     rot.Value = math.mul(rot.Value, quaternion.RotateZ(math.radians(shipData.rollInput * shipData.rollSpeed * deltaTime)));
                     shipData.Pos = pos.Value;
                 }
-                else
+                else if (shipData.Teleport)
                 {
                     //teleports the ship to a random location within the play space
+                    AudioManager.Instance.PlayPlayerTeleport();
+                    shipData.Teleport = false;
+                    pos.Value = new Vector3(
+                    ReturnValue(AsteroidManager.Instance.SpawnMax.x - 100, AsteroidManager.Instance.SpawnMin.x + 100),
+                    ReturnValue(AsteroidManager.Instance.SpawnMax.y - 100, AsteroidManager.Instance.SpawnMin.y + 100),
+                    ReturnValue(AsteroidManager.Instance.SpawnMax.z - 100, AsteroidManager.Instance.SpawnMin.z + 100));
+                }
+                if (shipWallCollisionData.HasCollided)
+                {
+                    //teleports the ship to a random location within the play space
+                    AudioManager.Instance.PlayPlayerTeleport();
+                    shipWallCollisionData.HasCollided = false;
                     shipData.Teleport = false;
                     pos.Value = new Vector3(
                     ReturnValue(AsteroidManager.Instance.SpawnMax.x - 100, AsteroidManager.Instance.SpawnMin.x + 100),

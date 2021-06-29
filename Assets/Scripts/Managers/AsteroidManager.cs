@@ -178,6 +178,7 @@ public class AsteroidManager : MonoBehaviour
         asteroidEntityLarge = new Entity[0];
         asteroidEntityMedium = new Entity[0];
         asteroidEntitySmall = new Entity[0];
+        entityManager.CompleteAllJobs();
         if (blobAssetStore != null)
         {
             blobAssetStore.Dispose();
